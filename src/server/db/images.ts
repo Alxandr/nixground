@@ -127,7 +127,9 @@ SELECT
 	t.slug AS tag_slug,
 	t.name AS tag_name,
 	t.kind_slug,
-	t.system
+	t.system,
+	t.chip_label,
+	t.chip_icon
 FROM image_tags it
 INNER JOIN tags t ON t.slug = it.tag_slug
 WHERE it.image_slug IN (${placeholders})
@@ -284,6 +286,8 @@ SELECT
 	t.name AS tag_name,
 	t.kind_slug,
 	t.system,
+	t.chip_label,
+	t.chip_icon,
 	0 AS image_count
 FROM tags t
 INNER JOIN image_tags it ON it.tag_slug = t.slug

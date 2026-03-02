@@ -4,7 +4,7 @@
 --
 
 CREATE TABLE schema_migrations (id VARCHAR(255) NOT NULL PRIMARY KEY);
-CREATE TABLE tags (slug TEXT PRIMARY KEY, name TEXT NOT NULL, kind_slug TEXT NOT NULL REFERENCES tag_kinds (slug) ON DELETE RESTRICT, system INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE tags (slug TEXT PRIMARY KEY, name TEXT NOT NULL, kind_slug TEXT NOT NULL REFERENCES tag_kinds (slug) ON DELETE RESTRICT, system INTEGER NOT NULL DEFAULT 0, chip_label TEXT, chip_icon TEXT);
 CREATE INDEX idx_tags_name ON tags (name);
 CREATE TABLE tag_kinds (slug TEXT PRIMARY KEY, name TEXT NOT NULL, system_only INTEGER NOT NULL DEFAULT 0);
 CREATE INDEX idx_tags_kind ON tags (kind_slug);

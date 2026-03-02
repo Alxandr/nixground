@@ -641,9 +641,11 @@ describe("db/image-tags integration", () => {
 
 			expect(rows).toEqual([
 				{ image_slug: "img-1", tag_slug: "aspect-ratio/16-9" },
+				{ image_slug: "img-1", tag_slug: "device/desktop" },
 				{ image_slug: "img-1", tag_slug: "motive/nature" },
 				{ image_slug: "img-1", tag_slug: "resolution/4k" },
 				{ image_slug: "img-2", tag_slug: "aspect-ratio/16-10" },
+				{ image_slug: "img-2", tag_slug: "device/desktop" },
 				{ image_slug: "img-2", tag_slug: "motive/nature" },
 				{ image_slug: "img-3", tag_slug: "motive/nature" },
 			]);
@@ -922,7 +924,13 @@ describe("db/image-tags integration", () => {
 			);
 			const systemTagSlugs = systemTagRows.rows.map((row) => getString(row, "slug"));
 
-			expect(systemTagSlugs).toEqual(["aspect-ratio/16-10", "aspect-ratio/16-9", "resolution/4k"]);
+			expect(systemTagSlugs).toEqual([
+				"aspect-ratio/16-10",
+				"aspect-ratio/16-9",
+				"device/desktop",
+				"device/mobile",
+				"resolution/4k",
+			]);
 		},
 		INTEGRATION_TIMEOUT_MS,
 	);
@@ -965,7 +973,10 @@ describe("db/image-tags integration", () => {
 				tag_slug: getString(row, "tag_slug"),
 			}));
 
-			expect(rows).toEqual([{ image_slug: "img-new-system-tag", tag_slug: "aspect-ratio/16-10" }]);
+			expect(rows).toEqual([
+				{ image_slug: "img-new-system-tag", tag_slug: "aspect-ratio/16-10" },
+				{ image_slug: "img-new-system-tag", tag_slug: "device/desktop" },
+			]);
 		},
 		INTEGRATION_TIMEOUT_MS,
 	);

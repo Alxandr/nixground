@@ -59,6 +59,8 @@ export type ImageListTagRecord = {
 	name: string;
 	kindSlug: TagKindSlug;
 	system: boolean;
+	chipLabel: string | null;
+	chipIcon: string | null;
 };
 
 export type ImageListRecord = ImageRecord & {

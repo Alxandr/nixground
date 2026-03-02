@@ -29,6 +29,16 @@ function asNumber(value: unknown, field: string) {
 	return value;
 }
 
+function asNullableString(value: unknown, field: string) {
+	if (value === null) {
+		return null;
+	}
+	if (typeof value !== "string") {
+		throw new Error(`Expected string or null for field: ${field}`);
+	}
+	return value;
+}
+
 export function mapImageRow(row: Row): ImageRecord {
 	return {
 		slug: assertValidImageSlug(asString(row.slug, "slug")),
@@ -62,5 +72,7 @@ export function mapImageListTagRow(row: Row): ImageListTagRecord {
 		name: assertTagName(asString(row.tag_name, "tag_name")),
 		kindSlug: assertTagKindSlug(asString(row.kind_slug, "kind_slug")),
 		system: asNumber(row.system, "system") === 1,
+		chipLabel: asNullableString(row.chip_label, "chip_label"),
+		chipIcon: asNullableString(row.chip_icon, "chip_icon"),
 	};
 }

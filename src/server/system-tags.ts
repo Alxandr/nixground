@@ -20,6 +20,14 @@ function hasAspectRatio(image: ImageForSystemTagging, widthPart: number, heightP
 	return image.widthPx * heightPart === image.heightPx * widthPart;
 }
 
+function isDesktopLike(image: ImageForSystemTagging) {
+	return image.widthPx * 3 >= image.heightPx * 4;
+}
+
+function isMobileLike(image: ImageForSystemTagging) {
+	return image.heightPx * 3 >= image.widthPx * 4;
+}
+
 const systemTags: readonly SystemTagRule[] = [
 	{
 		name: "resolution/4k",
@@ -32,6 +40,14 @@ const systemTags: readonly SystemTagRule[] = [
 	{
 		name: "aspect-ratio/16-10",
 		isApplicable: (image) => hasAspectRatio(image, 16, 10),
+	},
+	{
+		name: "device/desktop",
+		isApplicable: (image) => isDesktopLike(image),
+	},
+	{
+		name: "device/mobile",
+		isApplicable: (image) => isMobileLike(image),
 	},
 ];
 

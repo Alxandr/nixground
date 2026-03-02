@@ -157,6 +157,8 @@ SELECT
 	t.name AS tag_name,
 	t.kind_slug,
 	t.system,
+	t.chip_label,
+	t.chip_icon,
 	0 AS image_count
 FROM tags t
 WHERE t.system = 0
@@ -428,6 +430,8 @@ SELECT
 	t.name AS tag_name,
 	t.kind_slug,
 	t.system,
+	t.chip_label,
+	t.chip_icon,
 	COALESCE(tc.image_count, 0) AS image_count
 FROM tags t
 LEFT JOIN tag_counts tc ON tc.tag_slug = t.slug

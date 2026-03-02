@@ -1,5 +1,5 @@
 import { useWindowSize } from "@react-hook/window-size";
-import { IconCheck, IconPencil } from "@tabler/icons-react";
+import { IconCheck, IconDeviceDesktop, IconDeviceMobile, IconPencil } from "@tabler/icons-react";
 import { ClientOnly } from "@tanstack/react-router";
 import {
 	useContainerPosition,
@@ -180,9 +180,29 @@ type ImageCardProps = {
 	readonly onToggleSelected: () => void;
 };
 
+function SystemTagIcon({ iconName }: { readonly iconName: string | null }) {
+	if (iconName === "device-desktop") {
+		return <IconDeviceDesktop aria-hidden className="size-3.5" />;
+	}
+
+	if (iconName === "device-mobile") {
+		return <IconDeviceMobile aria-hidden className="size-3.5" />;
+	}
+
+	return null;
+}
+
 function ImageCard({ image, onEdit, selected, onToggleSelected }: ImageCardProps) {
 	const systemTags = image.tags.filter((tag) => tag.system);
 	const userTags = image.tags.filter((tag) => !tag.system);
+	const sortedSystemTags = [...systemTags].sort((a, b) => {
+		const aHasIcon = a.chipIcon !== null;
+		const bHasIcon = b.chipIcon !== null;
+		if (aHasIcon === bHasIcon) {
+			return 0;
+		}
+		return aHasIcon ? -1 : 1;
+	});
 
 	return (
 		<figure
@@ -217,14 +237,19 @@ function ImageCard({ image, onEdit, selected, onToggleSelected }: ImageCardProps
 				<div className="pointer-events-none absolute top-2 right-2 z-10 max-w-[70%] space-y-1 text-right">
 					{systemTags.length > 0 ? (
 						<div className="flex flex-nowrap justify-end gap-1 overflow-hidden">
-							{systemTags.map((tag) => (
+							{sortedSystemTags.map((tag) => (
 								<Badge
 									key={tag.slug}
 									variant="secondary"
-									className="shrink-0 bg-black/65 text-[11px] text-white backdrop-blur-sm"
+									className="inline-flex shrink-0 items-center gap-1 bg-black/65 text-[11px] text-white backdrop-blur-sm"
+									aria-label={tag.name}
 									style={{ backgroundColor: getTagKindColor(String(tag.kindSlug), 0.3, "65%") }}
 								>
-									{tag.name}
+									<SystemTagIcon iconName={tag.chipIcon} />
+									{tag.chipIcon === null ? (
+										<span aria-hidden>{tag.chipLabel ?? tag.name}</span>
+									) : null}
+									<span className="sr-only">{tag.name}</span>
 								</Badge>
 							))}
 						</div>
