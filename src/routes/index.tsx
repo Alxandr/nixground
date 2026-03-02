@@ -1,4 +1,3 @@
-import { IconEdit } from "@tabler/icons-react";
 import { useQueryClient, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import {
 	createFileRoute,
@@ -10,10 +9,9 @@ import { type } from "arktype";
 import { useCallback, useEffect, useEffectEvent, useMemo, useState } from "react";
 
 import { BulkEditImageTagsDialog } from "@/components/gallery/BulkEditImageTagsDialog";
+import { GalleryHeader } from "@/components/gallery/GalleryHeader";
 import { ImageGallery } from "@/components/gallery/ImageGallery";
 import { TagSidebar } from "@/components/gallery/TagSidebar";
-import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { UploadDialog } from "@/components/upload/UploadDialog";
 import { listImagesQueryOptions } from "@/queries/images";
@@ -133,28 +131,10 @@ function App() {
 		<>
 			<TagSidebar tagKinds={tagKindsQuery.data} onTagToggle={onTagToggle} />
 			<SidebarInset>
-				<Header
-					rightActions={
-						selectedImageSlugs.size > 0 ? (
-							<div className="flex items-center gap-2">
-								<p className="text-muted-foreground text-sm">
-									{selectedImageSlugs.size}{" "}
-									{selectedImageSlugs.size === 1 ? "selected" : "selected"}
-								</p>
-								<Button variant="outline" size="sm" onClick={clearSelection}>
-									Clear
-								</Button>
-								<Button
-									variant="secondary"
-									size="icon-sm"
-									onClick={() => setIsBulkEditorOpen(true)}
-								>
-									<IconEdit />
-									<span className="sr-only">Bulk edit selected images</span>
-								</Button>
-							</div>
-						) : null
-					}
+				<GalleryHeader
+					selectedImages={selectedImageSlugs.size}
+					onBulkEdit={() => setIsBulkEditorOpen(true)}
+					onClearSelection={clearSelection}
 				/>
 				<main className="p-8">
 					<ImageGallery

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import type { DeleteTarget, KindFormState, TagFormState } from "@/components/tag-management/types";
 
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 import { DeleteConfirmDialog } from "@/components/tag-management/DeleteConfirmDialog";
 import { ReapplySystemTagsDialog } from "@/components/tag-management/ReapplySystemTagsDialog";
 import { TagDialog } from "@/components/tag-management/TagDialog";
@@ -242,7 +242,7 @@ function TagsManagementPage() {
 
 	return (
 		<SidebarInset>
-			<Header showUpload={false} />
+			<Header />
 			<main className="mx-auto flex w-full max-w-6xl flex-col gap-6 p-6 md:p-8">
 				<div className="flex items-center justify-between gap-3">
 					<div>

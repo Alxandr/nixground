@@ -185,7 +185,10 @@ function ImageCard({ image, onEdit, selected, onToggleSelected }: ImageCardProps
 	const userTags = image.tags.filter((tag) => !tag.system);
 
 	return (
-		<figure className="bg-card group relative overflow-hidden rounded-xl border @container">
+		<figure
+			className="bg-card group relative overflow-hidden rounded-xl border @container"
+			onClick={onToggleSelected}
+		>
 			<Button
 				variant={selected ? "default" : "secondary"}
 				size="icon-sm"
