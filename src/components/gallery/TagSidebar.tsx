@@ -51,7 +51,10 @@ export function TagSidebar({ tagKinds, onTagToggle }: TagSidebarProps) {
 								>
 									{kind.name}
 								</SidebarGroupLabel>
-								<span className="text-muted-foreground text-xs">
+								<span
+									className="text-muted-foreground text-xs"
+									style={{ color: getTagKindColor(String(kind.slug), 0.7) }}
+								>
 									{formatCountLabel(kind.imageCount)}
 								</span>
 							</div>
@@ -66,14 +69,16 @@ export function TagSidebar({ tagKinds, onTagToggle }: TagSidebarProps) {
 												}}
 												aria-pressed={tag.selected}
 												className={cn(
-													"focus-visible:ring-ring flex w-full items-center justify-between gap-2 rounded-md px-2 py-1 text-sm outline-none transition-colors focus-visible:ring-2",
+													"focus-visible:ring-ring flex w-full items-center justify-between gap-2 rounded-md pl-2 py-1 text-sm outline-none transition-colors focus-visible:ring-2",
 													tag.selected
 														? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
 														: "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-foreground",
 												)}
 												style={
 													tag.selected
-														? { backgroundColor: getTagKindColor(String(kind.slug), 0.7) }
+														? {
+																backgroundColor: getTagKindColor(String(kind.slug), 0.7),
+															}
 														: undefined
 												}
 												data-selected={tag.selected ? "true" : undefined}
